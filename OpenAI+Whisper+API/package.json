@@ -1,0 +1,46 @@
+{
+  "version": "0.1.0",
+  "license": "MIT",
+  "sideEffects": false,
+  "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
+  "module": "dist/openai-whisper-apilib.esm.js",
+  "files": [
+    "dist",
+    "src"
+  ],
+  "engines": {
+    "node": ">=10.4.0"
+  },
+  "scripts": {
+    "build": "tsdx build",
+    "test": "tsdx test --passWithNoTests",
+    "lint": "tsdx lint src",
+    "prepare": "tsdx build"
+  },
+  "peerDependencies": {},
+  "prettier": {
+    "printWidth": 80,
+    "semi": true,
+    "singleQuote": true,
+    "trailingComma": "es5"
+  },
+  "name": "openai-whisper-apilib",
+  "description": "TODO : Enter description",
+  "author": {
+    "name": "APIMATIC SDK Generator"
+  },
+  "devDependencies": {
+    "stream-equal": "^2.0.1",
+    "tsdx": "^0.14.1",
+    "tslib": "^2.1.0",
+    "typescript": "^3.9.7"
+  },
+  "dependencies": {
+    "@apimatic/core": "^0.7.9",
+    "@apimatic/schema": "^0.6.0"
+  },
+  "bugs": {
+    "email": "support@apimatic.io"
+  }
+}
