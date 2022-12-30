@@ -9,7 +9,7 @@ import {
   RetrieveMediaURL,
   retrieveMediaURLSchema,
 } from '../models/retrieveMediaURL';
-import { string } from '../schema';
+import { number, string } from '../schema';
 import { BaseController } from './baseController';
 
 export class MediaController extends BaseController {
@@ -36,5 +36,30 @@ export class MediaController extends BaseController {
     const mapped = req.prepareArgs({ mediaID: [mediaID, string()] });
     req.appendTemplatePath`/${mapped.mediaID}`;
     return req.callAsJson(retrieveMediaURLSchema, requestOptions);
+  }
+
+  /**
+   * @param mid
+   * @param ext
+   * @param hash
+   * @return Response from the API call
+   */
+  async downloadMedia(
+    mid: number,
+    ext: number,
+    hash: string,
+    requestOptions?: RequestOptions
+  ): Promise<ApiResponse<NodeJS.ReadableStream | Blob>> {
+    const req = this.createRequest('GET', '/attachments/');
+    req.baseUrl('media');
+    const mapped = req.prepareArgs({
+      mid: [mid, number()],
+      ext: [ext, number()],
+      hash: [hash, string()],
+    });
+    req.query('mid', mapped.mid);
+    req.query('ext', mapped.ext);
+    req.query('hash', mapped.hash);
+    return req.callAsStream(requestOptions);
   }
 }

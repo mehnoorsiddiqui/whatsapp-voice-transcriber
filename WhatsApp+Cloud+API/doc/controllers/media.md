@@ -8,6 +8,11 @@ const mediaController = new MediaController(client);
 
 `MediaController`
 
+## Methods
+
+* [Retrieve Media URL](../../doc/controllers/media.md#retrieve-media-url)
+* [Download Media](../../doc/controllers/media.md#download-media)
+
 
 # Retrieve Media URL
 
@@ -59,8 +64,51 @@ try {
   "url": "<URL>",
   "mime_type": "image/jpeg",
   "sha256": "<HASH>",
-  "file_size": "303833",
+  "file_size": 303833,
   "id": "2621233374848975"
+}
+```
+
+
+# Download Media
+
+```ts
+async downloadMedia(
+  mid: number,
+  ext: number,
+  hash: string,
+  requestOptions?: RequestOptions
+): Promise<ApiResponse<NodeJS.ReadableStream | Blob>>
+```
+
+## Parameters
+
+| Parameter | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `mid` | `number` | Query, Required | - |
+| `ext` | `number` | Query, Required | - |
+| `hash` | `string` | Query, Required | - |
+| `requestOptions` | `RequestOptions \| undefined` | Optional | Pass additional request options. |
+
+## Response Type
+
+`NodeJS.ReadableStream | Blob`
+
+## Example Usage
+
+```ts
+const mid = 68;
+const ext = 170;
+const hash = 'hash6';
+try {
+  const { result, ...httpResponse } = await mediaController.downloadMedia(mid, ext, hash);
+  // Get more response info...
+  // const { statusCode, headers } = httpResponse;
+} catch(error) {
+  if (error instanceof ApiError) {
+    const errors = error.result;
+    // const { statusCode, headers } = error;
+  }
 }
 ```
 

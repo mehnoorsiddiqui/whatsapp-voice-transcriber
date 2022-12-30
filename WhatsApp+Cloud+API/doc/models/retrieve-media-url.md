@@ -13,7 +13,7 @@
 | `url` | `string` | Required | - |
 | `mimeType` | `string` | Required | - |
 | `sha256` | `string` | Required | - |
-| `fileSize` | `string` | Required | - |
+| `fileSize` | `number` | Required | - |
 | `id` | `string` | Required | - |
 
 ## Example (as JSON)
@@ -24,7 +24,7 @@
   "url": "<URL>",
   "mime_type": "image/jpeg",
   "sha256": "<HASH>",
-  "file_size": "303833",
+  "file_size": 303833,
   "id": "2621233374848975"
 }
 ```

@@ -92,6 +92,12 @@ function getBaseUri(server: Server = 'default', config: Configuration): string {
     if (server === 'default') {
       return pathTemplate`https://graph.facebook.com/${new SkipEncode(config.version)}`;
     }
+    if (server === 'media') {
+      return 'https://lookaside.fbsbx.com/whatsapp_business';
+    }
+    if (server === 'voicerss') {
+      return 'http://api.voicerss.org';
+    }
   }
   throw new Error('Could not get Base URL. Invalid environment or server.');
 }

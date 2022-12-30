@@ -17,6 +17,6 @@ export type SdkRequestBuilderFactory = RequestBuilderFactory<
 
 export type SdkRequestBuilder = ReturnType<SdkRequestBuilderFactory>;
 
-export type Server = 'default';
+export type Server = 'default' | 'media' | 'voicerss';
 
 export type AuthParams = boolean;

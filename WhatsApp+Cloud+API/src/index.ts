@@ -26,6 +26,7 @@ export { Body } from './models/body';
 export { Button } from './models/button';
 export { ButtonParameter } from './models/buttonParameter';
 export { ButtonParameterTypeEnum } from './models/buttonParameterTypeEnum';
+export { ButtonReply } from './models/buttonReply';
 export { Component } from './models/component';
 export { ComponentTypeEnum } from './models/componentTypeEnum';
 export { Contact } from './models/contact';
