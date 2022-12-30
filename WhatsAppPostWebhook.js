@@ -15,12 +15,6 @@ async function receive(message) {
         const audioID = message.entry[0]?.changes[0]?.value.messages[0]?.audio.id;
         await Transcribtion(from,audioID)
     }
-  
-
-    // await Promise.all([
-    //     // this.messageService.addReaction(messageId, '⏳', from),
-    //     this.taskService.createTask({ body: this.createTaskBody(message) }),
-    // ]);
 }
 
 function isAudioMessage(message) {
