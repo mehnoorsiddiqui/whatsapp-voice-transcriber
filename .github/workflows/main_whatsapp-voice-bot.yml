@@ -27,7 +27,7 @@ jobs:
           npm run recursive
           
       - name: Zip artifact for deployment
-        run: zip release.zip ./* -r
+        run: Compress-Archive -Path ./* -DestinationPath release.zip
       
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
@@ -48,8 +48,8 @@ jobs:
         with:
           name: node-app
           
-      - name: unzip artifact for deployment
-        run: unzip release.zip
+      - name: Unzip artifact
+        run: Expand-Archive release.zip
 
       - name: 'Deploy to Azure Web App'
         uses: azure/webapps-deploy@v2
