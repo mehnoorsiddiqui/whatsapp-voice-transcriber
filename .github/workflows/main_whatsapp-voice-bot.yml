@@ -26,14 +26,14 @@ jobs:
           npm install
           npm run recursive
           
-      - name: Zip artifact for deployment
-        run: Compress-Archive -Path ./* -DestinationPath release.zip
+#       - name: Zip artifact for deployment
+#         run: Compress-Archive -Path ./* -DestinationPath release.zip
       
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
         with:
           name: node-app
-          path: release.zip
+          path: .
 
   deploy:
     runs-on: ubuntu-latest
@@ -48,8 +48,8 @@ jobs:
         with:
           name: node-app
           
-      - name: Unzip artifact
-        run: 7z x release.zip
+#       - name: Unzip artifact
+#         run: 7z x release.zip
 
       - name: 'Deploy to Azure Web App'
         uses: azure/webapps-deploy@v2
