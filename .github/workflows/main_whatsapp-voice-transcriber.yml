@@ -1,7 +1,7 @@
 # Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
 # More GitHub Actions for Azure: https://github.com/Azure/actions
 
-name: Build and deploy Node.js app to Azure Web App - whatsapp-voice-bot
+name: Build and deploy Node.js app to Azure Web App - whatsapp-voice-transcriber
 
 on:
   push:
@@ -25,15 +25,15 @@ jobs:
         run: |
           npm install
           npm run recursive
-          
-#       - name: Zip artifact for deployment
-#         run: Compress-Archive -Path ./* -DestinationPath release.zip
+           
+      - name: Zip artifact for deployment
+        run: Compress-Archive -Path ./* -DestinationPath release.zip
       
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
         with:
           name: node-app
-          path: .
+          path: release.zip
 
   deploy:
     runs-on: ubuntu-latest
@@ -48,14 +48,14 @@ jobs:
         with:
           name: node-app
           
-#       - name: Unzip artifact
-#         run: 7z x release.zip
+      - name: unzip artifact for deployment
+        run: unzip release.zip
 
       - name: 'Deploy to Azure Web App'
         uses: azure/webapps-deploy@v2
         id: deploy-to-webapp
         with:
-          app-name: 'whatsapp-voice-bot'
+          app-name: 'whatsapp-voice-transcriber'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_53F34C1FE76541FA8EAB963CB40190EF }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_05D631A042DB474E891AB3BB53CCEF5F }}
           package: .
