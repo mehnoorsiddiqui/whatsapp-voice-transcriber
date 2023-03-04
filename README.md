@@ -1,4 +1,5 @@
-[![Whats Voice Magic](./public/working.gif)]
+# WhatsApp Voice Magic
+(./public/working.gif)
 
 ## How it works
 
@@ -51,6 +52,6 @@ npm start
 
 ## CodeSandbox
 
-1. Fork [this codesandbox]() repo.
+1. Fork [this codesandbox](https://codesandbox.io/p/sandbox/whatsapp-voice-magic-lwqrdg) repo.
 2. Replace the access token with yours in the .env file.
 3. Add the URL of the running sandbox as the webhook URL in the developer account
