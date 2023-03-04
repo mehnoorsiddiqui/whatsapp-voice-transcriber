@@ -1,9 +1,9 @@
 # WhatsApp Voice Magic
-(./public/working.gif)
+![WhatsApp Voice Magic](./public/working.gif)
 
 ## How it works
 
-WhatsApp voice message transcriber app created with APIMatic auto-generated SDKs for [WhatsApp](https://www.apimatic.io/apidocs/whatsapp-api/v/1_0#/http/guides/send-a-message)and [OpenAI Whisper](https://www.apimatic.io/api-docs/whisper-api) API.This voice transcriber bot that can transcribe incoming voice messages in WhatsApp to text in real-time, enabling easy communication across languages.
+WhatsApp voice magic is an audio message transcriber app created with APIMatic auto-generated SDKs for [WhatsApp](https://www.apimatic.io/apidocs/whatsapp-api/v/1_0#/http/guides/send-a-message)and [OpenAI Whisper](https://www.apimatic.io/api-docs/whisper-api) API.This voice transcriber bot that can transcribe incoming voice messages in WhatsApp to text in real-time, enabling easy communication across languages.
 
 ## Running Locally
 
