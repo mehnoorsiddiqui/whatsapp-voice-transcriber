@@ -10,7 +10,7 @@ const apiController = new ApiController(client);
 const task = 'transcribe';
 const language = 'en';
 
-const transcribeAudio_= async(audioFilePath)=>{
+const transcribeAudio= async(audioFilePath)=>{
     const audioFile = new FileWrapper(fs.createReadStream(`./${audioFilePath}`));
     try {
         const { result, ...httpResponse } = await apiController.transcribeFileAsrPost(audioFile, task, language);        
@@ -35,4 +35,4 @@ async function deleteFile(filePath) {
   }
 }
 
-module.exports = transcribeAudio_;
+module.exports = transcribeAudio;
