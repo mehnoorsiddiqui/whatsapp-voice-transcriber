@@ -6,9 +6,7 @@ const app = express().use(body_parser.json());
 
 const receive = require("./WhatsAppPostWebhook");
 
-
 app.post("/webhook", async (req, res) => {
-  console.log("POST: someone is posting");
   try {
     await receive(req.body);
     res.sendStatus(200);
@@ -19,8 +17,6 @@ app.post("/webhook", async (req, res) => {
 
 app.get("/webhook", (req, res) => {
   try {
-    console.log("GET: I am in get meta wa");
-
     let mode = req.query["hub.mode"];
     let token = req.query["hub.verify_token"];
     let challenge = req.query["hub.challenge"];
