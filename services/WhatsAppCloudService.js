@@ -9,16 +9,22 @@ const client = new Client({
 const messagesController = new MessagesController(client);
 
 const sendMessage_ = async(from,text)=> {
-    let from_= from.toString();
-    let phoneNumberID_ = process.env.PHONE_NUMBER_ID;
-    let text_= text.toString();
-
+    const from_= from.toString();
+    const phoneNumberID_ = process.env.PHONE_NUMBER_ID;    
+    let textMessage = ' ';
+  
+    if (text === undefined || text === null || text.length === 0) {
+      textMessage = "Sorry, we were unable to detect any audio in your message. Please make sure your microphone is enabled and try again.";
+    } else if (typeof text === 'string') {
+      textMessage = text;
+    } 
+   
     const body = {
         messagingProduct: 'whatsapp',
         to: from_,
         type: "text",
         text: {
-            body: text_     
+            body: textMessage     
           }
       };
     try {

@@ -9,9 +9,9 @@ const task = 'transcribe';
 const language = 'en';
 
 const transcribeAudio= async(audioFilePath)=>{
-    const audioFile = new FileWrapper(fs.createReadStream(`${audioFilePath}`));
-    try {
-        const { result, ...httpResponse } = await apiController.transcribeFileAsrPost(audioFile, task, language);               
+    const audioFile = new FileWrapper(fs.createReadStream(audioFilePath));
+    try {     
+        const { result, ...httpResponse } = await apiController.transcribeFileAsrPost(audioFile, task, language);                       
         return result.text;
       } catch(error) {
         console.log(error)    
@@ -21,5 +21,4 @@ const transcribeAudio= async(audioFilePath)=>{
         }
       }
 }
-
 module.exports = transcribeAudio;

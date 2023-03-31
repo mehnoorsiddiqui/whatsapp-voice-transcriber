@@ -1,35 +1,33 @@
 const { sendMessage_ } = require("./services/WhatsAppCloudService");
 const Transcription = require("./Transcription");
 
-async function receive(notificationPayload) {
-  for (const entry of notificationPayload.entry) {
-    for (const change of entry.changes) {
-      for (const message of change.value.messages) {
-        const messageId = message.id;
-        const from = message.from;
+async function receive(message) {
+  const messageId = message.entry?.[0]?.changes?.[0].value.messages?.[0]?.id;
+  const from = message.entry?.[0]?.changes?.[0].value.messages?.[0]?.from;
 
-        if (!isAudioMessage(message) && !isReplyMessage(message)) {
-          if (messageId) {
-            await sendMessage_(from, "Bot only supports audio messages");
-          }
-          return;
-        } else {
-          const audioID = message.audio.id;
-          await Transcription(from, audioID);
-        }
-      }
+  if (!isAudioMessage(message) && !isReplyMessage(message)) {
+    if (messageId) {
+      await sendMessage_(from, "Bot only supports audio messages");
     }
+    return;
+  } else {
+    const audioID = message.entry[0]?.changes[0]?.value.messages[0]?.audio.id;
+    await Transcription(from, audioID);
   }
 }
 
 function isAudioMessage(message) {
-  return message.type === "audio";
+  return (
+    message?.entry?.[0]?.changes?.[0]?.value?.messages?.[0]?.type === "audio"
+  );
 }
 
-function isReplyMessage(message) {
+function isReplyMessage(receivedMessage) {
+  const message =
+    receivedMessage?.entry?.[0]?.changes?.[0]?.value?.messages?.[0];
   return (
-    message.type === "interactive" &&
-    message.interactive?.type === "button_reply"
+    message?.type === "interactive" &&
+    message?.interactive?.type === "button_reply"
   );
 }
 
