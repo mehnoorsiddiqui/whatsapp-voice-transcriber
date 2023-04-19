@@ -1,13 +1,11 @@
-const {
-  sendMessage_,
-  downloadAudio_,
-} = require("./services/WhatsAppCloudService");
-const transcribeAudio = require("./services/OpenAIWhisperService");
+const { sendMessage_,downloadAudio_,} = require("./services/WhatsAppCloudService");
+const createTranscription = require("./Services/OpenAIWhisperService");
 const fs = require("fs").promises;
 const os = require("os");
 const path = require("path");
 const ffmpeg = require("fluent-ffmpeg");
 const ffmpegPath = require("@ffmpeg-installer/ffmpeg").path;
+
 ffmpeg.setFfmpegPath(ffmpegPath);
 
 async function Transcription(to, audioID) {
@@ -21,7 +19,7 @@ async function Transcription(to, audioID) {
     const audioName = audioID + ".mp3";
     const transcodedAudioPath = path.join(tempDir, audioName);
     await transcodeAudio(orginalAudioPath, transcodedAudioPath, "mp3");
-    const text = await transcribeAudio(transcodedAudioPath);
+    const text = await createTranscription(transcodedAudioPath);
     await sendMessage_(to, text);
   } finally {
     await fs.rm(tempDir, { recursive: true });

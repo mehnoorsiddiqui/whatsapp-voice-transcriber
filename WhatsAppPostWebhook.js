@@ -2,18 +2,23 @@ const { sendMessage_ } = require("./services/WhatsAppCloudService");
 const Transcription = require("./Transcription");
 
 async function receive(message) {
-  const messageId = message.entry?.[0]?.changes?.[0].value.messages?.[0]?.id;
-  const from = message.entry?.[0]?.changes?.[0].value.messages?.[0]?.from;
-
-  if (!isAudioMessage(message) && !isReplyMessage(message)) {
-    if (messageId) {
-      await sendMessage_(from, "Bot only supports audio messages");
+  try {
+    const messageId = message.entry?.[0]?.changes?.[0].value.messages?.[0]?.id;
+    const from = message.entry?.[0]?.changes?.[0].value.messages?.[0]?.from;
+  
+    if (!isAudioMessage(message) && !isReplyMessage(message)) {
+      if (messageId) {
+        await sendMessage_(from, "Bot only supports audio messages");
+      }
+      return;
+    } else {
+      const audioID = message.entry[0]?.changes[0]?.value.messages[0]?.audio.id;
+      await Transcription(from, audioID);
     }
-    return;
-  } else {
-    const audioID = message.entry[0]?.changes[0]?.value.messages[0]?.audio.id;
-    await Transcription(from, audioID);
+  } catch (error) {
+    console.log(error)
   }
+ 
 }
 
 function isAudioMessage(message) {

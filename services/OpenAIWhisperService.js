@@ -1,24 +1,28 @@
-const fs = require('fs');
-const { ApiController,ApiError,Client,FileWrapper} = require('openai-whisper-apilib');
+const fs = require("fs");
+const { Client, OpenAIController, FileWrapper } = require("openai-apilib");
 
+// Create OpenAI configuration
 const client = new Client({
   timeout: 0,
+  accessToken: process.env.OPENAI_API_KEY
 });
-const apiController = new ApiController(client);
-const task = 'transcribe';
-const language = 'en';
 
-const transcribeAudio= async(audioFilePath)=>{
-    const audioFile = new FileWrapper(fs.createReadStream(audioFilePath));
-    try {     
-        const { result, ...httpResponse } = await apiController.transcribeFileAsrPost(audioFile, task, language);                       
-        return result.text;
-      } catch(error) {
-        console.log(error)    
-        if (error instanceof ApiError) {
-          const errors = error.result;
-          // const { statusCode, headers } = error;
-        }
-      }
-}
-module.exports = transcribeAudio;
+// Create OpenAI API client
+const openAIController = new OpenAIController(client);
+
+const createTranscription = async (audioFilePath) => {
+  const file = new FileWrapper(fs.createReadStream(audioFilePath));
+  const model = "whisper-1";
+  const prompt = "English Language";
+  const responseFormat = "json";
+  const temperature = 0;
+  const language = "en"
+  try {
+    const { result } = await openAIController.createTranscription(file, model, prompt, responseFormat, temperature, language);
+    return result.text;
+  } catch (error) {
+    throw error;
+  }
+};
+
+module.exports = createTranscription;
