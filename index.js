@@ -25,7 +25,7 @@ app.get("/webhook", (req, res) => {
       mode &&
       token &&
       mode === "subscribe" &&
-      process.env.VERIFY_TOKEN === token
+      process.env.WEBHOOK_VERIFY_TOKEN === token
     ) {
       console.log("webhook verified");
       return res.status(200).send(challenge);

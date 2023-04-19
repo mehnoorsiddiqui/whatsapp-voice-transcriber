@@ -1,16 +1,16 @@
 const {ApiError,Client,MessagesController,MediaController} = require('whatsapp-cloud-apilib');
 const fetch = require('node-fetch');
-const token = process.env.WHATSAPP_TOKEN;
+const token = process.env.WHATSAPP_ACCESS_TOKEN;
   
 const client = new Client({
     timeout: 0,
-    accessToken: process.env.WHATSAPP_TOKEN,
+    accessToken: process.env.WHATSAPP_ACCESS_TOKEN,
 });
 const messagesController = new MessagesController(client);
 
 const sendMessage_ = async(from,text)=> {
     const from_= from.toString();
-    const phoneNumberID_ = process.env.PHONE_NUMBER_ID;    
+    const phoneNumberID_ = process.env.WHATSAPP_PHONE_NUMBER_ID;    
     let textMessage = ' ';
   
     if (text === undefined || text === null || text.length === 0) {
