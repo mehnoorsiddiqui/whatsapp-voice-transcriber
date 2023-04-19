@@ -1,4 +1,4 @@
-const { sendMessage_ } = require("./services/WhatsAppCloudService");
+const { sendMessage} = require("./services/WhatsAppCloudService");
 const Transcription = require("./Transcription");
 
 async function receive(message) {
@@ -8,7 +8,7 @@ async function receive(message) {
   
     if (!isAudioMessage(message) && !isReplyMessage(message)) {
       if (messageId) {
-        await sendMessage_(from, "Bot only supports audio messages");
+        await sendMessage(from, "Bot only supports audio messages");
       }
       return;
     } else {
