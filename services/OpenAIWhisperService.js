@@ -10,15 +10,12 @@ const client = new Client({
 // Create OpenAI API client
 const openAIController = new OpenAIController(client);
 
-const createTranscription = async (audioFilePath) => {
+//translate and transcribe audio into English
+const createTranscription = async audioFilePath => {
   const file = new FileWrapper(fs.createReadStream(audioFilePath));
   const model = "whisper-1";
-  const prompt = "English Language";
-  const responseFormat = "json";
-  const temperature = 0;
-  const language = "en"
   try {
-    const { result } = await openAIController.createTranscription(file, model, prompt, responseFormat, temperature, language);
+    const { result } = await openAIController.createTranslation(file, model);
     return result.text;
   } catch (error) {
     throw error;
