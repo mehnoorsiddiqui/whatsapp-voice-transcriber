@@ -43,7 +43,6 @@ async function transcodeAudio(inputPath, outputPath, format) {
       })
 
       .on("end", () => {
-        console.log("Conversion succeeded!");
         resolve();
       })
       .save(outputPath);

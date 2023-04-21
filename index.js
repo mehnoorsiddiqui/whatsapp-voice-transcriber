@@ -4,13 +4,13 @@ const body_parser = require("body-parser");
 
 const app = express().use(body_parser.json());
 
-const receive = require("./WhatsAppPostWebhook");
+const handleAudioMessage = require("./WhatsAppAudioHandler");
 
 const token = process.env.WEBHOOK_VERIFY_TOKEN
 
 app.post("/webhook", async (req, res) => {
   try {
-    await receive(req.body);
+    await handleAudioMessage(req.body);
     res.sendStatus(200);
   } catch (error) {
     res.sendStatus(404);
