@@ -1,5 +1,5 @@
-const { sendMessage,downloadAudio} = require("./services/WhatsAppCloudService");
-const createTranscription = require("./Services/OpenAIWhisperService");
+const { sendMessage, downloadAudio } = require("./services/WhatsAppCloudService");
+const createTranscription = require("./services/OpenAIWhisperService");
 const fs = require("fs").promises;
 const os = require("os");
 const path = require("path");
@@ -9,6 +9,7 @@ const ffmpegPath = require("@ffmpeg-installer/ffmpeg").path;
 ffmpeg.setFfmpegPath(ffmpegPath);
 
 async function Transcription(to, audioID) {
+
   const downloadMedia = await downloadAudio(audioID);
 
   //Creat temporary directory and remove it after function execution.
@@ -33,20 +34,20 @@ async function Transcription(to, audioID) {
 async function transcodeAudio(inputPath, outputPath, format) {
   return new Promise((resolve, reject) => {
     ffmpeg()
-    .input(inputPath)
-    .outputFormat(format)
+      .input(inputPath)
+      .outputFormat(format)
 
-    .on("error", (error) => {
-      console.error(`FFmpeg error: ${error.message}`);
-      reject(error);
-    })
+      .on("error", (error) => {
+        console.error(`FFmpeg error: ${error.message}`);
+        reject(error);
+      })
 
-    .on("end", () => {
-      console.log("Conversion succeeded!");
-      resolve();
-    })
-    .save(outputPath);
-    
+      .on("end", () => {
+        console.log("Conversion succeeded!");
+        resolve();
+      })
+      .save(outputPath);
+
   });
 }
 
