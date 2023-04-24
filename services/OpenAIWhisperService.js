@@ -14,8 +14,12 @@ const openAIController = new OpenAIController(client);
 const createTranscription = async audioFilePath => {
   const file = new FileWrapper(fs.createReadStream(audioFilePath));
   const model = "whisper-1";
+  const prompt = "English responses"
+  const responseFormat = "json";
+  const temperature = 0;
+  const language = "en" ;
   try {
-    const { result } = await openAIController.createTranslation(file, model);
+    const { result } = await openAIController.createTranscription(file,model,prompt,responseFormat,temperature,language);        
     return result.text;
   } catch (error) {
     throw error;
