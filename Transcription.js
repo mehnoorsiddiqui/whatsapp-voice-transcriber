@@ -1,5 +1,5 @@
-const { sendMessage, downloadAudio } = require("./services/WhatsAppCloudService");
-const createTranscription = require("./services/OpenAIWhisperService");
+const { downloadAudio } = require("./services/WhatsAppCloudService");
+const createTranscription = require("./Services/OpenAIWhisperService");
 const fs = require("fs").promises;
 const os = require("os");
 const path = require("path");
@@ -8,20 +8,22 @@ const ffmpegPath = require("@ffmpeg-installer/ffmpeg").path;
 
 ffmpeg.setFfmpegPath(ffmpegPath);
 
-async function Transcription(to, audioID) {
+async function Transcription(audioID) {
 
   const downloadMedia = await downloadAudio(audioID);
 
   //Creat temporary directory and remove it after function execution.
   const tempDir = await fs.mkdtemp(path.join(await fs.realpath(os.tmpdir()), path.sep));
   try {
-    const orginalAudioPath = path.join(tempDir, "file");
-    await fs.writeFile(orginalAudioPath, await downloadMedia.buffer());
-    const audioName = audioID + ".mp3";
-    const transcodedAudioPath = path.join(tempDir, audioName);
-    await transcodeAudio(orginalAudioPath, transcodedAudioPath, "mp3");
-    const text = await createTranscription(transcodedAudioPath);
-    await sendMessage(to, text);
+    // Convert the audio file from OGG to MP3 format
+    const oggAudioPath = path.join(tempDir, "file");
+    await fs.writeFile(oggAudioPath, await downloadMedia.buffer());
+    const mp3AudioPath = path.join(tempDir, `${audioID}.mp3`);
+    await transcodeAudio(oggAudioPath, mp3AudioPath, "mp3");
+
+    // Transcribe the MP3 audio file 
+    const text = await createTranscription(mp3AudioPath);
+    return text;
   } catch (error) {
     throw error;
   }
@@ -30,7 +32,7 @@ async function Transcription(to, audioID) {
   }
 }
 
-//convert the audio from ogg format to mp3
+// Convert an audio file from one format to another
 async function transcodeAudio(inputPath, outputPath, format) {
   return new Promise((resolve, reject) => {
     ffmpeg()

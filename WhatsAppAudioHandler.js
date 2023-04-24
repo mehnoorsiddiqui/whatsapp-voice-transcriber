@@ -22,7 +22,13 @@ async function handleAudioMessage(message) {
       return;
     }
     const audioID = msg.audio.id;
-    await Transcription(from, audioID);
+    const transcriptedMessage = await Transcription(audioID);
+
+    if (!transcriptedMessage) {
+      await sendMessage(from, "Sorry, we were unable to detect any audio in your message. Please make sure your microphone is enabled and try again.");
+      return;
+    }
+    await sendMessage(from, transcriptedMessage);
 
   } catch (error) {
     console.log(error)
