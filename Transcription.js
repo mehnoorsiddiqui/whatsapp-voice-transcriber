@@ -1,5 +1,5 @@
 const { downloadAudio } = require("./services/WhatsAppCloudService");
-const createTranscription = require("./Services/OpenAIWhisperService");
+const createTranscription = require("./services/OpenAIWhisperService");
 const fs = require("fs").promises;
 const os = require("os");
 const path = require("path");
