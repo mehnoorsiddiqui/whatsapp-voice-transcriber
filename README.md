@@ -7,7 +7,7 @@ WhatsApp voice magic is an audio message transcriber app created with APIMatic a
 
 ## Running Locally
 
-### Cloning the repository the local machine.
+### Cloning the repository to the local machine.
 
 ```bash
 git clone https://github.com/mehnoorsiddiqui/whatsapp-voice-magic
